@@ -11,7 +11,7 @@ const CountryListPage = () => {
   useEffect(() => {
     getDataCountries((data) => {
       setCountries(data);
-      // setFilteredCountry(data); // Misal Tampilan awal ingin datanya tampil
+      setFilteredCountry(data); // Misal Tampilan awal ingin datanya tampil
     });
   }, []);
 

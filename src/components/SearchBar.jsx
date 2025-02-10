@@ -25,7 +25,7 @@ const SearchBar = ({ searchCountry, handleSearch }) => {
       <button
         type="submit"
         onClick={handleButtonClick}
-        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 w-1/6 rounded-lg py-2 my-4 "
+        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 w-1/6 rounded-lg py-2 px-2 my-4 "
       >
         Search
       </button>
