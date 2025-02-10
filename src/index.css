@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #000000;
+}
+
+.leaflet-container {
+  height: 300px; /* Atur tinggi peta sesuai kebutuhan */
+  width: 50%;
+  border-radius: 10px;
+}
