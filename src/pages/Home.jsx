@@ -1,7 +1,5 @@
-import CountryCard from "../components/CountryCard";
-import Header from "../components/Header";
-import SearchBar from "../components/SearchBar";
-import CountryListPage from "../fragments/CountryListPage";
+import Header from "../components/fragments/Header";
+import CountryListPage from "../layouts/CountryListPage";
 
 const Home = () => {
   return (

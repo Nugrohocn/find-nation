@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { getDataCountries } from "../services/country.service";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/fragments/SearchBar";
 import CountryCard from "../components/CountryCard";
 
 const CountryListPage = () => {
   const [countries, setCountries] = useState([]);
   const [searchCountry, setSearchCountry] = useState("");
   const [filteredCountry, setFilteredCountry] = useState([]);
+  const [filterCategory, setFilterCategory] = useState("nama"); // Default filter by "Nama Negara"
 
   useEffect(() => {
     getDataCountries((data) => {
@@ -18,21 +19,27 @@ const CountryListPage = () => {
   const handleSearch = (search) => {
     setSearchCountry(search);
 
-    const filtered = countries.filter((country) =>
-      country.name.common.toLowerCase().includes(search.toLowerCase())
-    );
+    const filtered = countries.filter((country) => {
+      if (filterCategory === "nama") {
+        return country.name.common.toLowerCase().includes(search.toLowerCase());
+      } else if (filterCategory === "benua") {
+        return country.continents.some((continent) =>
+          continent.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+      return false;
+    });
 
     setFilteredCountry(filtered);
   };
 
-  // Pantau perubahan state filteredCountry
-  useEffect(() => {
-    console.log("Filtered Data:", filteredCountry);
-  }, [filteredCountry]);
-
   return (
     <div>
-      <SearchBar handleSearch={handleSearch} />
+      <SearchBar
+        handleSearch={handleSearch}
+        filterCategory={filterCategory}
+        setFilterCategory={setFilterCategory}
+      />
       <CountryCard countries={filteredCountry} />
     </div>
   );
