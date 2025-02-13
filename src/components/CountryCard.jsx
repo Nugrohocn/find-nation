@@ -18,7 +18,7 @@ const CountryCard = ({ countries }) => {
   };
 
   return (
-    <>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
       {countries.length > 0 ? (
         countries.map((country, index) => {
           const { name, symbol } = getCurrency(country);
@@ -26,13 +26,13 @@ const CountryCard = ({ countries }) => {
           return (
             <div
               key={index}
-              className="border border-gray-300 rounded-lg shadow-md p-6 my-4 w-full max-w-xl mx-auto bg-dark"
+              className="border border-gray-300 rounded-lg shadow-md p-6 bg-black"
             >
               <h1 className="text-2xl font-bold text-center mb-4">
                 {country.name.common}
               </h1>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
                 <div className="flex justify-center">
                   <img
                     src={country.flags.png}
@@ -65,11 +65,11 @@ const CountryCard = ({ countries }) => {
           );
         })
       ) : (
-        <p className="flex justify-center mt-10">
+        <p className="flex justify-center mt-10 col-span-2 text-center">
           Data negara yang kamu cari tidak ditemukan 😢
         </p>
       )}
-    </>
+    </div>
   );
 };
 

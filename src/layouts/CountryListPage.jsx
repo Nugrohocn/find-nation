@@ -3,11 +3,11 @@ import { getDataCountries } from "../services/country.service";
 import SearchBar from "../components/fragments/SearchBar";
 import CountryCard from "../components/CountryCard";
 
-const CountryListPage = () => {
+const CountryListPage = ({ nama }) => {
   const [countries, setCountries] = useState([]);
   const [searchCountry, setSearchCountry] = useState("");
   const [filteredCountry, setFilteredCountry] = useState([]);
-  const [filterCategory, setFilterCategory] = useState("nama"); // Default filter by "Nama Negara"
+  const [filterCategory, setFilterCategory] = useState("nama");
 
   useEffect(() => {
     getDataCountries((data) => {
@@ -23,10 +23,11 @@ const CountryListPage = () => {
       if (filterCategory === "nama") {
         return country.name.common.toLowerCase().includes(search.toLowerCase());
       } else if (filterCategory === "benua") {
-        return country.continents.some((continent) =>
-          continent.toLowerCase().includes(search.toLowerCase())
-        );
+        return country.continents[0]
+          .toLowerCase()
+          .includes(search.toLowerCase());
       }
+
       return false;
     });
 

@@ -12,6 +12,12 @@ const SearchBar = ({ handleSearch, filterCategory, setFilterCategory }) => {
     handleSearch(searchTerm);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleButtonClick();
+    }
+  };
+
   return (
     <div className="my-4 flex flex-col">
       <label className="my-2">Cari negara</label>
@@ -20,6 +26,7 @@ const SearchBar = ({ handleSearch, filterCategory, setFilterCategory }) => {
           type="text"
           value={searchTerm}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           className="bg-white w-1/2 text-slate-800 px-4 py-2 capitalize rounded-md"
         />
         <Dropdown
