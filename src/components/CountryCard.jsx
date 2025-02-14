@@ -1,4 +1,11 @@
+import { useState } from "react";
+import Modal from "./Modal";
+import Map from "./Map";
+
 const CountryCard = ({ countries }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const getCurrency = (country) => {
     if (!country.currencies) return { name: "Tidak ada", symbol: "" };
 
@@ -13,7 +20,6 @@ const CountryCard = ({ countries }) => {
     if (!country.languages) return "Tidak Ada";
 
     const languageKey = Object.keys(country.languages)[0];
-
     return country.languages[languageKey];
   };
 
@@ -26,7 +32,11 @@ const CountryCard = ({ countries }) => {
           return (
             <div
               key={index}
-              className="border border-gray-300 rounded-lg shadow-md p-6 bg-black"
+              className="border border-gray-300 rounded-lg shadow-md p-6 bg-black cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => {
+                setIsModalOpen(true);
+                setSelectedItem(country);
+              }}
             >
               <h1 className="text-2xl font-bold text-center mb-4">
                 {country.name.common}
@@ -51,14 +61,6 @@ const CountryCard = ({ countries }) => {
                     Mata Uang:{" "}
                     <span className="font-normal text-md">{`${name} (${symbol}) `}</span>
                   </h2>
-                  <h2 className="text-lg font-semibold">
-                    Bahasa:{" "}
-                    <span className="font-normal">{getLanguage(country)}</span>
-                  </h2>
-                  <h2 className="text-lg font-semibold">
-                    Benua:{" "}
-                    <span className="font-normal">{country.continents}</span>
-                  </h2>
                 </div>
               </div>
             </div>
@@ -69,6 +71,63 @@ const CountryCard = ({ countries }) => {
           Data negara yang kamu cari tidak ditemukan 😢
         </p>
       )}
+
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+      >
+        {selectedItem && (
+          <div className="text-white p-6 rounded-lg">
+            <h1 className="text-3xl font-bold text-center mb-6">
+              {selectedItem.name.common}
+            </h1>
+
+            {/* Peta */}
+            <div className="mb-6">
+              <Map
+                latitude={selectedItem.capitalInfo.latlng[0]}
+                longitude={selectedItem.capitalInfo.latlng[1]}
+              />
+            </div>
+
+            {/* Informasi Negara */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <p className="text-lg">
+                  <strong>Ibukota:</strong> {selectedItem.capital}
+                </p>
+                <p className="text-lg">
+                  <strong>Mata Uang:</strong>{" "}
+                  {`${getCurrency(selectedItem).name} (${
+                    getCurrency(selectedItem).symbol
+                  })`}
+                </p>
+                <p className="text-lg">
+                  <strong>Bahasa:</strong> {getLanguage(selectedItem)}
+                </p>
+              </div>
+              <div className="space-y-3">
+                <p className="text-lg">
+                  <strong>Benua:</strong> {selectedItem.continents}
+                </p>
+                <p className="text-lg">
+                  <strong>Populasi:</strong>{" "}
+                  {selectedItem.population.toLocaleString()} Jiwa
+                </p>
+                <p className="text-lg">
+                  <strong>Region:</strong> {selectedItem.region}
+                </p>
+                <p className="text-lg">
+                  <strong>Subregion:</strong> {selectedItem.subregion}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
