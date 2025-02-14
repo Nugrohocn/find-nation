@@ -80,13 +80,13 @@ const CountryCard = ({ countries }) => {
         }}
       >
         {selectedItem && (
-          <div className="text-white p-6 rounded-lg">
-            <h1 className="text-3xl font-bold text-center mb-6">
+          <div className="text-white p-4 md:p-6 rounded-lg w-full max-w-screen-md mx-auto">
+            <h1 className="text-2xl md:text-3xl font-bold text-center mb-4 md:mb-6">
               {selectedItem.name.common}
             </h1>
 
             {/* Peta */}
-            <div className="mb-6">
+            <div className="mb-4 md:mb-6 h-48 md:h-64">
               <Map
                 latitude={selectedItem.capitalInfo.latlng[0]}
                 longitude={selectedItem.capitalInfo.latlng[1]}
@@ -94,33 +94,33 @@ const CountryCard = ({ countries }) => {
             </div>
 
             {/* Informasi Negara */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-3">
-                <p className="text-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="space-y-2 md:space-y-3">
+                <p className="text-base md:text-lg">
                   <strong>Ibukota:</strong> {selectedItem.capital}
                 </p>
-                <p className="text-lg">
+                <p className="text-base md:text-lg">
                   <strong>Mata Uang:</strong>{" "}
                   {`${getCurrency(selectedItem).name} (${
                     getCurrency(selectedItem).symbol
                   })`}
                 </p>
-                <p className="text-lg">
+                <p className="text-base md:text-lg">
                   <strong>Bahasa:</strong> {getLanguage(selectedItem)}
                 </p>
               </div>
-              <div className="space-y-3">
-                <p className="text-lg">
+              <div className="space-y-2 md:space-y-3">
+                <p className="text-base md:text-lg">
                   <strong>Benua:</strong> {selectedItem.continents}
                 </p>
-                <p className="text-lg">
+                <p className="text-base md:text-lg">
                   <strong>Populasi:</strong>{" "}
                   {selectedItem.population.toLocaleString()} Jiwa
                 </p>
-                <p className="text-lg">
+                <p className="text-base md:text-lg">
                   <strong>Region:</strong> {selectedItem.region}
                 </p>
-                <p className="text-lg">
+                <p className="text-base md:text-lg">
                   <strong>Subregion:</strong> {selectedItem.subregion}
                 </p>
               </div>
